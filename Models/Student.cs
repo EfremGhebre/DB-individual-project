@@ -2,8 +2,9 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-//using static System.Runtime.InteropServices.JavaScript.JSType;
-//using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Reflection.Metadata;
+using Microsoft.Data.SqlClient;
+using System.Data;
 
 
 namespace NewAgeHS.Models;
@@ -151,8 +152,48 @@ public partial class Student
             AnsiConsole.Write(table);
             Console.WriteLine("Press enter to go back to main menu. ");
             Console.ReadKey();
+    }
+    public void GetStudentInfo() // Get student information by student ID
+    {
+        // Create connection string 
+        string connectionString = "Server=(localdb)\\MSSQLLocalDB;Initial Catalog=NewAgeHighSchool;Integrated Security=True";
+
+        // Get student ID from user input
+        Console.Write("Enter Student ID: ");
+        int studentID = Convert.ToInt32(Console.ReadLine());
+
+        // Create a SqlConnection object
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+            connection.Open();
+
+            // Create a SqlCommand object with a parameterized SQL command
+
+            using (SqlCommand command = new SqlCommand("ShowStudentInfo", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                // Add the StudentID parameter
+                command.Parameters.AddWithValue("@InputStudentID", studentID);
+
+                // Execute the command and read the results
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        // Display student information
+                        Console.WriteLine($"StudentID: {reader["StudID"]}");
+                        Console.WriteLine($"FirstName: {reader["FirstName"]}");
+                        Console.WriteLine($"LastName: {reader["LastName"]}");
+                        Console.WriteLine($"FkclassName: {reader["FkclassName"]}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Student not found.");
+                    }
+                }
+                Console.WriteLine("Press enter to go back to main menu. ");
+                Console.ReadKey();
+            }
         }
     }
-
-   
-
+}

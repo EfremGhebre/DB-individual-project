@@ -92,6 +92,8 @@ public partial class NewAgeHighSchoolContext : DbContext
             entity.Property(e => e.FirstName).HasMaxLength(50);
             entity.Property(e => e.LastName).HasMaxLength(50);
             entity.Property(e => e.Title).HasMaxLength(30);
+            entity.Property(e => e.EmploymentDate).HasColumnType("date");
+            entity.Property(e => e.Salary).HasColumnType("salary");
         });
 
         modelBuilder.Entity<Student>(entity =>

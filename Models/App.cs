@@ -28,7 +28,8 @@ namespace NewAgeHS.Models
                     {
                         Console.Clear();
                         Console.WriteLine("Choose from the menu below:");
-                        Console.WriteLine("Press: \n1. All Staff \n2. Staff with specific title\n3. To register new staff\n0. Previous page");
+                        Console.WriteLine("Press: \n1. All Staff \n2. Staff with specific title\n" +
+                            "3. To register new staff\n4. Get average salary\n5. Show salary by title\n0. Previous page");
                         int staffChoice = int.Parse(Console.ReadLine());
                         if (staffChoice == 1)
                         {
@@ -45,11 +46,23 @@ namespace NewAgeHS.Models
                             Staff newEmp = new Staff();
                             newEmp.NewEmployee();
                         }
+                        else if(staffChoice == 4)
+                        {
+                            Staff getAverageSalaries = new Staff();
+                            getAverageSalaries.ShowAverageStaffSalary();
+                        }
+                        else if (staffChoice == 5)
+                        {
+                            Staff getSalaryByTitle = new Staff();
+                            getSalaryByTitle.ShowSalaryByTitle();
+                        }
                     }
                     else if (userChoice == 2)
                     {
                         Console.Clear();
-                        Console.WriteLine("Press:\n1. All Students' information\n2. Sorted students' information\n3. Students by class name\n4. Register a new student\n0. Previous page");
+                        Console.WriteLine("Press:\n1. All Students' information\n2. Sorted students' information\n" +
+                            "3. Students by class name\n" +
+                            "4. Register a new student\n5. Get student info by ID\n0. Previous page");
                         int studentChoice = int.Parse(Console.ReadLine());
                         if (studentChoice == 1)
                         {
@@ -71,6 +84,11 @@ namespace NewAgeHS.Models
                             Student addNewStudent = new Student();
                             addNewStudent.NewStudent();
                         }
+                        else if (studentChoice == 5)
+                        {
+                            Student getStudentByID = new Student();
+                            getStudentByID.GetStudentInfo();
+                        }
                     }
                     else if (userChoice == 3)
                     {
@@ -86,12 +104,13 @@ namespace NewAgeHS.Models
                         {
                             Course studentsInCourse = new Course();
                             studentsInCourse.ShowCourseDetails();
-                        }
+                        }                        
                     }
                     else if (userChoice == 4)
                     {
                         Console.Clear();
-                        Console.WriteLine("Press:\n1. Student average grade\n2. Average grades by course\n3. All students' grades\n4. Last month grades\n0. Previous page ");
+                        Console.WriteLine("Press:\n1. Student average grade\n2. Average grades by course\n" +
+                            "3. All students' grades\n4. Last month grades\n5. Set student grades\n0. Previous page ");
                         int courseChoice = int.Parse(Console.ReadLine());
                         if (courseChoice == 1)
                         {
@@ -112,6 +131,11 @@ namespace NewAgeHS.Models
                         {
                             ReportCard lastMonthGrades = new ReportCard();
                             lastMonthGrades.LastMonthGrades();
+                        }
+                        else if (courseChoice == 5)
+                        {
+                            ReportCard setStudentGrades = new ReportCard();
+                            setStudentGrades.RegisterGrades();
                         }
                     }
                     else
